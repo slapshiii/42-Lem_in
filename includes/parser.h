@@ -1,29 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 01:37:27 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/14 05:28:00 by phnguyen         ###   ########.fr       */
+/*   Created: 2021/12/14 03:42:45 by phnguyen          #+#    #+#             */
+/*   Updated: 2021/12/14 04:54:39 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lem_in.h"
+#ifndef PARSER_H
+# define PARSER_H
 
-int	main(int ac, char **av)
+# include "utils.h"
+
+typedef enum state
 {
-	t_config	conf;
+	nb_ants = 0,
+	room,
+	r_start,
+	r_end,
+	tube,
+	end,
+	error
+}	t_state;
 
-	if (ac != 1)
-	{
-		dprintf(2, "%s: Error: Invalid arguments\n", av[0]);
-		return (1);
-	}
-	if (parse_input(&conf))
-	{
-		return (2);
-	}
-	return (0);
-}
+typedef struct config
+{
+	int		nb_ants;
+	int		nb_nodes;
+	int		start;
+	int		end;
+	t_list	*edges;
+	t_list	*nodes;
+}	t_config;
+
+int	parse_input(t_config *conf);
+
+#endif
