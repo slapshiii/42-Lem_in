@@ -6,14 +6,18 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 03:42:45 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/14 04:54:39 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/16 03:15:52 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "utils.h"
+# include "libft.h"
+# include "node.h"
+# include <stdio.h>
+
+# define WS " \t\r"
 
 typedef enum state
 {
@@ -30,9 +34,7 @@ typedef struct config
 {
 	int		nb_ants;
 	int		nb_nodes;
-	int		start;
-	int		end;
-	t_list	*edges;
+	int		valid;
 	t_list	*nodes;
 }	t_config;
 

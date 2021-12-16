@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 04:07:30 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/14 05:16:15 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/16 03:01:33 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,18 @@ static void	parser_nb_ants(t_config *conf, t_state *state, char *str)
 static void	parser_room(t_config *conf, t_state *state, char *str)
 {
 	char	**tab;
+	int		res;
+
 	if (!ft_strcmp(str, "##start"))
 		*state = r_start;
 	else if (!ft_strcmp(str, "##end"))
 		*state = r_end;
 	else
 	{
-		++conf->nb_nodes;
 		tab = ft_split(str, WS);
-		push_front(&conf->nodes, tab[0]);
+		res = checkroom(tab, conf);
+		if (res == 0)
+			*state = error;
 	}
 }
 
@@ -60,9 +63,9 @@ int	parse_input(t_config *conf)
 			parser_nb_ants(conf, &state, line);
 		else if (state == room)
 			parser_room(conf, &state, line);
-		else if (state == tube)
+		if (state == tube)
 			;
-		else if (state == error)
+		if (state == error)
 			;
 		free(line);
 	}
