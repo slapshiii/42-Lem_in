@@ -6,44 +6,41 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 02:06:49 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/16 04:33:58 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/23 23:34:20 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+#include <stdio.h>
 
-int	addroom(t_config *conf, t_state	*state, char *str)
+t_state	addroom(t_config *conf, t_state	*state, char **tab)
 {
-	tab = ft_split(str, WS);
-	res = checkroom(tab, conf);
-	if (res == 0)
-		*state = error;
-}
+	t_node	*node;
 
-/*
-**	0 = error
-**	1 = good
-**	2 = tube
-*/
-int	checkroom(char **tab, t_config *conf)
-{
-	char	**tube;
-	t_node	*new_node;
-	size_t	i;
-
-	i = 0;
-	new_node = (t_node *)malloc(sizeof(t_node));
-	if (!new_node)
-		return (0);
 	if (tab[0] && tab[1] && tab[2] && !tab[3])
 	{
-		new_node->name = ft_strdup(tab[0]);
-		new_node->coord.x = ft_atoi(tab[1]);
-		new_node->coord.y = ft_atoi(tab[2]);
+		node = new_node(tab[0], (t_pos)(*state) - 1,
+			(t_coord){ft_atoi(tab[1]), ft_atoi(tab[2])});
+		if (!node)
+			return (error);
+		ft_lstadd_front(&(conf->nodes), ft_lstnew(node));
+		++conf->nb_nodes;
+		return (room);
 	}
-	else if (tab[0] && !tab[1])
-	{
+	if (tab[0] && !tab[1])
+		return (tube);
+	return (error);
+}
 
-	}
-	return (0);
+t_state addedge(t_config *conf, char **tab)
+{
+	t_list	*elem;
+	t_node	*node;
+
+	elem = ft_lstfind(&(conf->nodes), &node_by_name, tab[0]);
+	if (elem == NULL)
+		return (error);
+	node = (t_node *)elem->content;
+	ft_lstadd_front(&(node->edge), ft_lstnew(ft_strdup(tab[1])));
+	return (tube);
 }

@@ -6,7 +6,7 @@
 #    By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/14 01:20:15 by phnguyen          #+#    #+#              #
-#    Updated: 2021/12/16 02:03:50 by phnguyen         ###   ########.fr        #
+#    Updated: 2021/12/23 22:34:47 by phnguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,8 @@ CC := gcc
 LIBFT := libft.a
 
 CFLAGS += -Wall -Werror -Wextra
-#CFLAGS += -g2
-CFLAGS += -fsanitize=address
+CFLAGS += -g
+#CFLAGS += -fsanitize=address
 
 SRCDIR := src/
 OBJDIR := obj/
@@ -25,7 +25,9 @@ LIBFTDIR := libft/
 INCL := includes/
 
 C_FILE =	main \
-			parser
+			parser \
+			parser_utils \
+			node
 
 SRC =	$(addprefix $(SRCDIR), $(addsuffix .c, $(C_FILE)))
 OBJ = 	$(addprefix $(OBJDIR), $(addsuffix .o, $(C_FILE)))

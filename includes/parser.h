@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 03:42:45 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/16 03:15:52 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/23 23:15:28 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "libft.h"
 # include "node.h"
-# include <stdio.h>
 
 # define WS " \t\r"
 
@@ -38,6 +37,10 @@ typedef struct config
 	t_list	*nodes;
 }	t_config;
 
-int	parse_input(t_config *conf);
+int		parse_input(t_config *conf);
+void	free_parser(t_config *conf);
+
+t_state	addroom(t_config *conf, t_state	*state, char **tab);
+t_state addedge(t_config *conf, char **tab);
 
 #endif
