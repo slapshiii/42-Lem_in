@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 02:06:49 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/23 23:34:20 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/24 00:59:48 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_state	addroom(t_config *conf, t_state	*state, char **tab)
 	if (tab[0] && tab[1] && tab[2] && !tab[3])
 	{
 		node = new_node(tab[0], (t_pos)(*state) - 1,
-			(t_coord){ft_atoi(tab[1]), ft_atoi(tab[2])});
+				(t_coord){ft_atoi(tab[1]), ft_atoi(tab[2])});
 		if (!node)
 			return (error);
 		ft_lstadd_front(&(conf->nodes), ft_lstnew(node));
@@ -32,7 +32,7 @@ t_state	addroom(t_config *conf, t_state	*state, char **tab)
 	return (error);
 }
 
-t_state addedge(t_config *conf, char **tab)
+t_state	addedge(t_config *conf, char **tab)
 {
 	t_list	*elem;
 	t_node	*node;

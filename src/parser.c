@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 04:07:30 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/23 23:24:31 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/24 01:25:42 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,25 @@ static void	parser_room(t_config *conf, t_state *state, char *str)
 
 	tab = ft_split(str, WS);
 	if (!ft_strcmp(str, "##start"))
-		*state = r_start;
+	{
+		if ((conf->valid & 0b010) == 0)
+			*state = r_start;
+		else
+			*state = error;
+		conf->valid |= 1 << 1;
+	}
 	else if (!ft_strcmp(str, "##end"))
-		*state = r_end;
+	{
+		if ((conf->valid & 0b100) == 0)
+			*state = r_end;
+		else
+			*state = error;
+		conf->valid |= 1 << 2;
+	}
 	else
 		*state = addroom(conf, state, tab);
 	ft_deletesplit(tab);
 }
-
 
 static void	parser_tube(t_config *conf, t_state *state, char *str)
 {
@@ -81,9 +92,9 @@ int	parse_input(t_config *conf)
 			return (1);
 	}
 	free(line);
-	if (state == tube)
-		return (0);
-	return (1);
+	if (state != tube || conf->valid != 6)
+		return (1);
+	return (0);
 }
 
 void	free_parser(t_config *conf)
