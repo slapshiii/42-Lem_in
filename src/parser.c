@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 04:07:30 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 01:32:14 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/24 02:56:45 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,35 @@ static void	parser_tube(t_config *conf, t_state *state, char *str)
 }
 
 /*
+**	return 1 if not comment
+**	return 0 otherwise
+*/
+static int	parser_comment(t_config *conf, t_state *state, char *str)
+{
+	if (str[0] && str[0] == '#')
+	{
+		if (ft_strcmp(str, "##start") == 0)
+		{
+			if ((conf->valid & 0b010) == 0)
+				*state = r_start;
+			else
+				*state = error;
+			conf->valid |= 1 << 1;
+		}
+		else if (ft_strcmp(str, "##end") == 0)
+		{
+			if ((conf->valid & 0b100) == 0)
+				*state = r_end;
+			else
+				*state = error;
+			conf->valid |= 1 << 2;
+		}
+		return (0);
+	}
+	return (1);
+}
+
+/*
 **	return 1 if failed
 **	return 0 otherwise
 */
@@ -77,7 +106,7 @@ int	parse_input(t_config *conf)
 	state = nb_ants;
 	while (get_next_line(0, &line) > 0)
 	{
-		if (line[0] && !(line[0] == '#' && line[1] != '#'))
+		if (parser_comment(conf, &state, line))
 		{
 			if (state == nb_ants)
 				parser_nb_ants(conf, &state, line);
@@ -92,7 +121,7 @@ int	parse_input(t_config *conf)
 			return (1);
 	}
 	free(line);
-	if (state != tube || conf->valid != 6)
+	if (state != tube || conf->valid != 0b110)
 		return (1);
 	return (0);
 }
