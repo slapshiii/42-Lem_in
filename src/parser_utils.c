@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 02:06:49 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 02:03:38 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/24 04:35:26 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ t_state	addroom(t_config *conf, t_state	*state, char **tab)
 				(t_coord){ft_atoi(tab[1]), ft_atoi(tab[2])});
 		if (!node || ft_lstfind(&(conf->nodes), &node_by_name, tab[0]))
 			return (error);
-		ft_lstadd_front(&(conf->nodes), ft_lstnew(node));
+		if (*state == r_start)
+			ft_lstadd_front(&(conf->nodes), ft_lstnew(node));
+		else
+			ft_lstadd_back(&(conf->nodes), ft_lstnew(node));
 		++conf->nb_nodes;
 		return (room);
 	}
@@ -35,10 +38,12 @@ t_state	addroom(t_config *conf, t_state	*state, char **tab)
 t_state	addedge(t_config *conf, char **tab)
 {
 	t_list	*elem;
+	t_list	*to;
 	t_node	*node;
 
 	elem = ft_lstfind(&(conf->nodes), &node_by_name, tab[0]);
-	if (elem == NULL)
+	to = ft_lstfind(&(conf->nodes), &node_by_name, tab[1]);
+	if (elem == NULL || to == NULL)
 		return (error);
 	node = (t_node *)elem->content;
 	ft_lstadd_front(&(node->edge), ft_lstnew(ft_strdup(tab[1])));

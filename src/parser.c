@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 04:07:30 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 02:56:45 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/24 04:29:42 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,21 @@ static void	parser_room(t_config *conf, t_state *state, char *str)
 	ft_deletesplit(tab);
 }
 
+/*
+**	does not search for separator in the first char
+**	if a node name is empty, an error is shown in addedge
+*/
 static void	parser_tube(t_config *conf, t_state *state, char *str)
 {
-	char	**tab;
+	char	*tab[2];
+	char	*sep;
 
-	tab = ft_split(str, "-");
-	if (!tab[0] || !tab[1] || tab[2])
-		*state = error;
-	else
-		*state = addedge(conf, tab);
-	ft_deletesplit(tab);
+	sep = ft_strchr(str + 1, '-');
+	tab[1] = ft_strdup(sep + 1);
+	tab[0] = ft_strndup(str, (size_t)(sep - str));
+	*state = addedge(conf, tab);
+	free(tab[0]);
+	free(tab[1]);
 }
 
 /*
