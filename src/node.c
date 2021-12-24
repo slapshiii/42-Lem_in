@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 22:34:24 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 01:26:52 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/24 02:01:35 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_node	*new_node(char *name, t_pos pos, t_coord coord)
 	new_node = (t_node *)malloc(sizeof(t_node));
 	if (new_node)
 	{
+		ft_bzero(new_node, sizeof(t_node));
 		new_node->name = ft_strdup(name);
 		if (new_node->name == NULL)
 		{
@@ -28,6 +29,8 @@ t_node	*new_node(char *name, t_pos pos, t_coord coord)
 		new_node->coord = coord;
 		new_node->pos = pos;
 		new_node->edge = NULL;
+		new_node->capacity = 1;
+		new_node->visited = 0;
 	}
 	return (new_node);
 }

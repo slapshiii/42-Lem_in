@@ -2,7 +2,7 @@ lem-in
 maps/
 obj/
 .vscode/
-libft/
+libft
 
 # Prerequisites
 *.d

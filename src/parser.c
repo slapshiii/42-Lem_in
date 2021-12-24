@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 04:07:30 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 01:25:42 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/24 01:32:14 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,4 @@ int	parse_input(t_config *conf)
 	if (state != tube || conf->valid != 6)
 		return (1);
 	return (0);
-}
-
-void	free_parser(t_config *conf)
-{
-	ft_lstclear(&(conf->nodes), &del_node);
 }

@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 01:37:27 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 01:15:45 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/24 01:32:09 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ void	print_config(t_config conf)
 	printf("\n\nPRINT CONTENT\nnb_ants: %d\nnb_nodes: %d\nvalid: %d\n-----\n",
 		conf.nb_ants, conf.nb_nodes, conf.valid);
 	ft_lstiter(conf.nodes, print_node);
+}
+
+void	conf_cleaner(t_config *conf)
+{
+	ft_lstclear(&(conf->nodes), &del_node);
 }
 
 int	main(int ac, char **av)
@@ -36,6 +41,6 @@ int	main(int ac, char **av)
 		return (2);
 	}
 	print_config(conf);
-	free_parser(&conf);
+	conf_cleaner(&conf);
 	return (0);
 }

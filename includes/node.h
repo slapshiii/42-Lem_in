@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 03:06:06 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 01:10:47 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/24 02:00:53 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ typedef struct node
 	t_pos	pos;
 	t_coord	coord;
 	t_list	*edge;
+	int		visited;
+	int		capacity;
+	int		dist;
 }	t_node;
 
 t_node	*new_node(char *name, t_pos pos, t_coord coord);
