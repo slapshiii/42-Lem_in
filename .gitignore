@@ -4,6 +4,8 @@ obj/
 .vscode/
 libft
 
+*.txt
+
 # Prerequisites
 *.d
 

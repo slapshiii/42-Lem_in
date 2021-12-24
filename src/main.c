@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 01:37:27 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 07:15:42 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/24 08:56:41 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,12 @@ int	main(int ac, char **av)
 		ft_putstr_fd("./lem-in: error: Error in input\n", 2);
 		return (2);
 	}
-	print_config(conf);
+	//print_config(conf);
 	ft_putstr_fd("ford", 2);
 	fordfulkerson(&conf);
 	print_config(conf);
+	printf("\n\nPRINT CONTENT\nnb_ants: %d\nnb_nodes: %d\nvalid: %d\n-----\n",
+		conf.nb_ants, conf.nb_nodes, conf.valid);
 	conf_cleaner(&conf);
 	return (0);
 }
