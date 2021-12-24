@@ -2,7 +2,6 @@ lem-in
 obj/
 .vscode/
 libft
-
 *.txt
 
 # Prerequisites
