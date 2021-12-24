@@ -6,7 +6,7 @@
 #    By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/14 01:20:15 by phnguyen          #+#    #+#              #
-#    Updated: 2021/12/23 22:34:47 by phnguyen         ###   ########.fr        #
+#    Updated: 2021/12/24 06:34:30 by phnguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ LIBFT := libft.a
 
 CFLAGS += -Wall -Werror -Wextra
 CFLAGS += -g
-#CFLAGS += -fsanitize=address
+CFLAGS += -fsanitize=address
 
 SRCDIR := src/
 OBJDIR := obj/
@@ -27,6 +27,7 @@ INCL := includes/
 C_FILE =	main \
 			parser \
 			parser_utils \
+			graph \
 			node
 
 SRC =	$(addprefix $(SRCDIR), $(addsuffix .c, $(C_FILE)))

@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 22:34:24 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 02:01:35 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/24 07:23:23 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ t_node	*new_node(char *name, t_pos pos, t_coord coord)
 		new_node->coord = coord;
 		new_node->pos = pos;
 		new_node->edge = NULL;
-		new_node->capacity = 1;
+		new_node->parent = NULL;
+		new_node->path = -1;
 		new_node->visited = 0;
 	}
 	return (new_node);
@@ -51,6 +52,14 @@ int	node_by_name(void *node_value, void *value)
 
 	node_content = (t_node *)node_value;
 	return (ft_strcmp(node_content->name, (char *)value));
+}
+
+void	reset_node(void *node)
+{
+	t_node	*n;
+
+	n = (t_node *)node;
+	n->visited = 0;
 }
 
 void	print_node(void *node)
