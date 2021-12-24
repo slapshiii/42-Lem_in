@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 01:36:45 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 07:17:01 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/24 09:17:48 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ typedef struct s_path
 	t_list	*path;
 }	t_path;
 
+
+void	del_path(void *path);
 void	fordfulkerson(t_config *conf);
 
 #endif

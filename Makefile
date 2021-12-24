@@ -6,7 +6,7 @@
 #    By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/14 01:20:15 by phnguyen          #+#    #+#              #
-#    Updated: 2021/12/24 08:56:52 by phnguyen         ###   ########.fr        #
+#    Updated: 2021/12/24 09:25:13 by phnguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC := gcc
 LIBFT := libft.a
 
 CFLAGS += -Wall -Werror -Wextra
-#CFLAGS += -g
+CFLAGS += -g
 #CFLAGS += -fsanitize=address
 
 SRCDIR := src/

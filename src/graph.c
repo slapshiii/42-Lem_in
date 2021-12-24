@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 01:34:57 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 08:04:38 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/24 09:38:38 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	dc_edge(t_list **edge, char *name)
 			else
 				*edge = tmp->next;
 			tmp = tmp->next;
-			ft_lstdelone(tofree, free);
+			ft_lstdelone(tofree, &free);
 		}
 		else
 		{
@@ -86,6 +86,15 @@ int	bfs(t_config *conf)
 	return (0);
 }
 
+void	del_path(void *path)
+{
+	t_path	*p;
+
+	p = (t_path *)path;
+	ft_lstclear(&p->path, &free);
+	free(p->path);
+}
+
 void	fordfulkerson(t_config *conf)
 {
 	t_path	*path;
@@ -115,9 +124,9 @@ void	fordfulkerson(t_config *conf)
 				node = ft_lstfind(&conf->nodes, &node_by_name, ((t_node *)node->content)->parent);
 				dc_edge(&((t_node *)node->content)->edge, prev);
 			}
-			if (path->dist != -1)
-				ft_lstadd_front(&conf->paths, ft_lstnew(path));
 		}
+		if (path && path->dist != -1)
+			ft_lstadd_front(&conf->paths, ft_lstnew(path));
 		++index;
 	}
 }
