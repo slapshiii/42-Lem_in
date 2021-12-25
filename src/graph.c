@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 01:34:57 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 09:38:38 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/25 02:10:47 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	bfs(t_config *conf)
 		u = ft_lstfind(&conf->nodes, &node_by_name, queue->content);
 		tofree = queue;
 		queue = queue->next;
-		ft_lstdelone(tofree, free);
+		ft_lstdelone(tofree, &free);
 		tofree = NULL;
 		edge = ((t_node *)u->content)->edge;
 		while (edge)
@@ -74,6 +74,7 @@ int	bfs(t_config *conf)
 				if (((t_node *)v->content)->pos == p_end)
 				{
 					((t_node *)v->content)->parent = ((t_node *)u->content)->name;
+					ft_lstclear(&queue, &free);
 					return (1);
 				}
 				ft_lstadd_back(&queue, ft_lstnew(ft_strdup(((t_node *)v->content)->name)));
@@ -90,9 +91,11 @@ void	del_path(void *path)
 {
 	t_path	*p;
 
+	if (!path)
+		return ;
 	p = (t_path *)path;
 	ft_lstclear(&p->path, &free);
-	free(p->path);
+	free(path);
 }
 
 void	fordfulkerson(t_config *conf)
@@ -127,6 +130,8 @@ void	fordfulkerson(t_config *conf)
 		}
 		if (path && path->dist != -1)
 			ft_lstadd_front(&conf->paths, ft_lstnew(path));
+		else
+			del_path(path);
 		++index;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 01:37:27 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 09:18:09 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/25 01:59:15 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,5 @@ int	main(int ac, char **av)
 	printf("\n\nPRINT CONTENT\nnb_ants: %d\nnb_nodes: %d\nvalid: %d\n-----\n",
 		conf.nb_ants, conf.nb_nodes, conf.valid);
 	conf_cleaner(&conf);
-	sleep(10);
 	return (0);
 }
