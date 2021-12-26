@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 04:07:30 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 18:34:24 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 18:38:27 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,8 @@ static int	parser_comment(t_config *conf, t_state *state, char *str)
 	if (str[0] && str[0] == '#')
 	{
 		if (ft_strncmp("##", str, 2) == 0 && conf->nb_ants == 0)
-		{
 			*state = error;
-			return (1);
-		}
-		if (ft_strcmp(str, "##start") == 0)
+		else if (ft_strcmp(str, "##start") == 0)
 		{
 			if ((conf->valid & 0b010) == 0)
 				*state = r_start;
