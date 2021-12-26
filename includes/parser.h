@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 03:42:45 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/25 21:46:45 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 12:14:28 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,37 @@ typedef enum state
 	error
 }	t_state;
 
-typedef struct config
+typedef struct s_path
+{
+	int		dist;
+	int 	index;
+	t_list	*path;
+}	t_path;
+
+typedef struct s_tunnel
 {
 	int		nb_ants;
-	int		nb_nodes;
-	int		valid;
-	int		nb_paths;
-	t_list	*nodes;
-	t_list	*paths;
+	int		current;
+	int		index;
+	int		dist;
+	char	**room_name;
+}	t_tunnel;
+
+typedef struct s_solver
+{
+	int			ants_remaining;
+	t_tunnel	*ar_tuns;
+}	t_solver;
+
+typedef struct config
+{
+	int			nb_ants;
+	int			nb_nodes;
+	int			valid;
+	int			nb_paths;
+	t_list		*nodes;
+	t_list		*paths;
+	t_solver	*solver;
 }	t_config;
 
 int		parse_input(t_config *conf);
