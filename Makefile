@@ -6,7 +6,7 @@
 #    By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/14 01:20:15 by phnguyen          #+#    #+#              #
-#    Updated: 2021/12/24 09:25:13 by phnguyen         ###   ########.fr        #
+#    Updated: 2021/12/25 18:17:23 by phnguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ C_FILE =	main \
 			parser \
 			parser_utils \
 			graph \
+			solver \
 			node
 
 SRC =	$(addprefix $(SRCDIR), $(addsuffix .c, $(C_FILE)))

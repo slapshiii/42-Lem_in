@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 03:42:45 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 06:29:41 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/25 21:46:45 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct config
 	int		nb_ants;
 	int		nb_nodes;
 	int		valid;
+	int		nb_paths;
 	t_list	*nodes;
 	t_list	*paths;
 }	t_config;

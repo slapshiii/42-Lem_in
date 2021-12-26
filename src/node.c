@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 22:34:24 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 07:23:23 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 11:14:57 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	del_node(void *node)
 
 	tofree = (t_node *)node;
 	free(tofree->name);
-	ft_lstclear(&(tofree->edge), free);
+	if (tofree->edge)
+		ft_lstclear(&(tofree->edge), NULL);
 	free(tofree);
 }
 

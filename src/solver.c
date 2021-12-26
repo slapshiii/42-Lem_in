@@ -1,41 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   solver.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/14 01:36:45 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/25 21:50:23 by phnguyen         ###   ########.fr       */
+/*   Created: 2021/12/25 18:16:43 by phnguyen          #+#    #+#             */
+/*   Updated: 2021/12/26 11:07:30 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#include "lem_in.h"
 
-# define INF_MAX 2147483647
-
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-
-# include "parser.h"
-
-typedef struct s_path
+int solver(t_config *conf)
 {
-	int		dist;
-	int 	index;
-	t_list	*path;
-}	t_path;
+    t_solver	*solver;
 
-typedef struct s_solver
-{
-	int		ants_remaining;
-	t_path	*ar_path;
-}	t_solver;
-
-
-void	del_path(void *path);
-void	fordfulkerson(t_config *conf);
-
-#endif
+	solver = (t_solver *)malloc(sizeof(t_solver));
+	if (solver)
+	{
+		ft_bzero(solver, sizeof(t_solver));
+		solver->ar_path = (t_path *)malloc(sizeof(t_path) * conf->nb_paths);
+	}
+	return 0;
+}

@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 01:34:57 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/25 02:10:47 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 11:18:17 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	dc_edge(t_list **edge, char *name)
 			else
 				*edge = tmp->next;
 			tmp = tmp->next;
-			ft_lstdelone(tofree, &free);
+			ft_lstdelone(tofree, NULL);
 		}
 		else
 		{
@@ -56,14 +56,14 @@ int	bfs(t_config *conf)
 	queue = NULL;
 	while (u && ((t_node *)u->content)->pos != p_start)
 		u = u->next;
-	ft_lstadd_back(&queue, ft_lstnew(ft_strdup(((t_node *)u->content)->name)));
+	ft_lstadd_back(&queue, ft_lstnew(((t_node *)u->content)->name));
 	((t_node *)u->content)->visited = 1;
 	while (ft_lstsize(queue))
 	{
 		u = ft_lstfind(&conf->nodes, &node_by_name, queue->content);
 		tofree = queue;
 		queue = queue->next;
-		ft_lstdelone(tofree, &free);
+		ft_lstdelone(tofree, NULL);
 		tofree = NULL;
 		edge = ((t_node *)u->content)->edge;
 		while (edge)
@@ -74,10 +74,10 @@ int	bfs(t_config *conf)
 				if (((t_node *)v->content)->pos == p_end)
 				{
 					((t_node *)v->content)->parent = ((t_node *)u->content)->name;
-					ft_lstclear(&queue, &free);
+					ft_lstclear(&queue, NULL);
 					return (1);
 				}
-				ft_lstadd_back(&queue, ft_lstnew(ft_strdup(((t_node *)v->content)->name)));
+				ft_lstadd_back(&queue, ft_lstnew(((t_node *)v->content)->name));
 				((t_node *)v->content)->parent = ((t_node *)u->content)->name;
 				((t_node *)v->content)->visited = 1;
 			}
@@ -94,7 +94,7 @@ void	del_path(void *path)
 	if (!path)
 		return ;
 	p = (t_path *)path;
-	ft_lstclear(&p->path, &free);
+	ft_lstclear(&p->path, NULL);
 	free(path);
 }
 
@@ -120,7 +120,7 @@ void	fordfulkerson(t_config *conf)
 			while (node)
 			{
 				++path->dist;
-				ft_lstadd_front(&path->path, ft_lstnew(ft_strdup(((t_node *)node->content)->name)));
+				ft_lstadd_front(&path->path, ft_lstnew(((t_node *)node->content)->name));
 				if (!((t_node *)node->content)->parent)
 					break ;
 				prev = ((t_node *)node->content)->name;
@@ -134,4 +134,5 @@ void	fordfulkerson(t_config *conf)
 			del_path(path);
 		++index;
 	}
+	conf->nb_paths = index;
 }
