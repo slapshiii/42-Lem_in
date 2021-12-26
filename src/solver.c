@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 18:16:43 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 21:37:40 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 21:47:59 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@ char	*format_output(int n, char *name)
 	return (res);
 }
 
-/*
-**	num -> x x-1 x-2
-*/
 void	print_tun_state(int *gone, t_tunnel *t, t_config *conf)
 {
 	int		room_index;
