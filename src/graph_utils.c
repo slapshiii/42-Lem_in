@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 16:37:19 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 16:57:38 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 19:04:20 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	bfs_solve(t_config *conf, t_list *edges, t_list **queue, t_list	*u)
 void	fordfulerson_resolve(t_config *conf, t_list *node, t_path *path)
 {
 	char	*prev;
+	t_list	*child;
 
 	while (node && ((t_node *)node->content)->pos != p_end)
 		node = node->next;
@@ -83,6 +84,9 @@ void	fordfulerson_resolve(t_config *conf, t_list *node, t_path *path)
 		prev = ((t_node *)node->content)->name;
 		node = ft_lstfind(&conf->nodes, &node_by_name,
 				((t_node *)node->content)->parent);
+		child = ft_lstfind(&conf->nodes, &node_by_name, prev);
 		dc_edge(&((t_node *)node->content)->edge, prev);
+		dc_edge(&((t_node *)child->content)->edge,
+			((t_node *)node->content)->name);
 	}
 }

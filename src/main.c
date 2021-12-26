@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 01:37:27 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 18:20:40 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 21:30:30 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	conf_cleaner(t_config *conf)
 		while (i < conf->nb_paths)
 		{
 			free((conf->solver->ar_tuns[i]).room_name);
+			free((conf->solver->ar_tuns[i]).room_occupant);
 			++i;
 		}
 		free(conf->solver->ar_tuns);

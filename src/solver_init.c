@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:10:41 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 16:30:37 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 20:33:39 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,23 @@ t_tunnel	init_tunnel(t_path *path)
 
 	curr = path->path->next;
 	i = 0;
-	res = (t_tunnel){0, 0, path->index, path->dist, NULL};
+	res = (t_tunnel){0, path->index, path->dist, NULL, NULL};
 	res.room_name = (char **)malloc(sizeof(char *) * res.dist);
-	if (res.room_name)
+	res.room_occupant = (int *)malloc(sizeof(int) * res.dist);
+	if (res.room_name && res.room_occupant)
 	{
 		while (curr)
 		{
 			res.room_name[i] = (char *)curr->content;
+			res.room_occupant[i] = -1;
 			curr = curr->next;
 			++i;
 		}
 	}
-	if (i != res.dist)
+	else
 	{
 		free(res.room_name);
-		res.room_name = NULL;
+		free(res.room_occupant);
 	}
 	return (res);
 }
@@ -74,9 +76,9 @@ void	assign_ants(t_config *conf, t_solver *solver)
 	while (solver->ants_remaining)
 	{
 		i = -1;
-		while (++i < conf->nb_paths && solver->ants_remaining)
+		while (++i < conf->nb_paths && solver->ants_remaining > 0)
 		{
-			if (solver->ar_tuns[i].dist % turn)
+			if (turn % solver->ar_tuns[i].dist == 0)
 			{
 				++solver->ar_tuns[i].nb_ants;
 				--solver->ants_remaining;

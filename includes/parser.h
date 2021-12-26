@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 03:42:45 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 16:51:53 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 21:10:29 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ typedef struct s_path
 typedef struct s_tunnel
 {
 	int		nb_ants;
-	int		current;
 	int		index;
 	int		dist;
+	int		*room_occupant;
 	char	**room_name;
 }	t_tunnel;
 
@@ -59,6 +59,7 @@ typedef struct config
 	int			nb_paths;
 	t_list		*nodes;
 	t_list		*paths;
+	t_list		*out;
 	t_solver	*solver;
 }	t_config;
 

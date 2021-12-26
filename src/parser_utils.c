@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 02:06:49 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 11:10:53 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 18:52:14 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ t_state	addedge(t_config *conf, char **tab)
 {
 	t_list	*elem;
 	t_list	*to;
-	t_node	*node;
 
 	elem = ft_lstfind(&(conf->nodes), &node_by_name, tab[0]);
 	to = ft_lstfind(&(conf->nodes), &node_by_name, tab[1]);
 	if (elem == NULL || to == NULL)
 		return (error);
-	node = (t_node *)elem->content;
-	ft_lstadd_front(&(node->edge), ft_lstnew(((t_node *)to->content)->name));
+	ft_lstadd_front(&(((t_node *)elem->content)->edge),
+		ft_lstnew(((t_node *)to->content)->name));
+	ft_lstadd_front(&(((t_node *)to->content)->edge),
+		ft_lstnew(((t_node *)elem->content)->name));
 	return (tube);
 }

@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 04:07:30 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 18:38:27 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 18:55:43 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int	parse_input(t_config *conf)
 		if (state == error)
 			return (1);
 	}
+	ft_putchar_fd('\n', 1);
 	free(line);
 	if (state != tube || conf->valid != 0b110 || conf->nb_ants == 0)
 		return (1);
