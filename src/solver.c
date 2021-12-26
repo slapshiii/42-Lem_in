@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 18:16:43 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 13:47:50 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 14:48:08 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,25 +68,26 @@ void	print_soluce(t_config *conf)
 	while (!finished)
 	{
 		finished = 1;
+		i = 0;
 		while (i < conf->nb_paths)
 		{
 			d = 0;
 			while (d < CUR_PATH.dist)
 			{
-				if (CUR_PATH.current < CUR_PATH.nb_ants
+				if (CUR_PATH.current - d < CUR_PATH.nb_ants
 					&& CUR_PATH.current - d >= 0)
 				{
 					if (!finished)
 						ft_putchar_fd(' ', 1);
 					finished = 0;
-					buf = format_output(CUR_PATH.current - d * CUR_PATH.index
-						+ CUR_PATH.index + 1, CUR_PATH.room_name[d]);
+					buf = format_output((CUR_PATH.current - d)* conf->nb_paths +
+						CUR_PATH.index + 1, CUR_PATH.room_name[d]);
 					ft_putstr_fd(buf, 1);
 					free(buf);
 				}
 				++d;
-				++CUR_PATH.current;
 			}
+			++CUR_PATH.current;
 			++i;
 		}
 		if (!finished)
@@ -99,7 +100,7 @@ int 	solver(t_config *conf)
     conf->solver = init_solver(conf);
 	if (!conf->solver)
 		return (1);
-	print_solver(conf);
+	//print_solver(conf);
 	print_soluce(conf);
 	return (0);
 }
