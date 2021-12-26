@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 04:07:30 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 18:55:43 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 22:03:05 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static int	parser_comment(t_config *conf, t_state *state, char *str)
 				*state = r_start;
 			else
 				*state = error;
-			conf->valid |= 1 << 1;
 		}
 		else if (ft_strcmp(str, "##end") == 0)
 		{
@@ -82,7 +81,6 @@ static int	parser_comment(t_config *conf, t_state *state, char *str)
 				*state = r_end;
 			else
 				*state = error;
-			conf->valid |= 1 << 2;
 		}
 		return (0);
 	}

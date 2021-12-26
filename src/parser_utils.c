@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 02:06:49 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 18:52:14 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 22:04:16 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,19 @@ t_state	addroom(t_config *conf, t_state	*state, char **tab)
 
 	if (tab[0] && tab[1] && tab[2] && !tab[3])
 	{
+		if (!ft_isnumber(tab[1]) || !ft_isnumber(tab[2])
+			|| ft_lstfind(&(conf->nodes), &node_by_name, tab[0]))
+			return (error);
 		node = new_node(tab[0], (t_pos)(*state) - 1,
 				(t_coord){ft_atoi(tab[1]), ft_atoi(tab[2])});
-		if (!node || ft_lstfind(&(conf->nodes), &node_by_name, tab[0]))
+		if (!node)
 			return (error);
 		ft_lstadd_front(&(conf->nodes), ft_lstnew(node));
 		++conf->nb_nodes;
+		if (*state == r_end)
+			conf->valid |= 1 << 2;
+		else if (*state == r_start)
+			conf->valid |= 1 << 1;
 		return (room);
 	}
 	if (tab[0] && !tab[1])
