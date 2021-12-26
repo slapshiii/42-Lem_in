@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/26 12:10:41 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 12:34:24 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 16:30:37 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_tunnel	*init_tunnels(t_config *conf)
 {
 	t_tunnel	*res;
 	t_list		*p;
-	t_path      *data;
+	t_path		*data;
 
 	p = conf->paths;
 	res = (t_tunnel *)malloc(sizeof(t_tunnel) * conf->nb_paths);
@@ -51,7 +51,7 @@ t_tunnel	*init_tunnels(t_config *conf)
 	{
 		while (p)
 		{
-            data = (t_path *)p->content;
+			data = (t_path *)p->content;
 			res[data->index] = init_tunnel(data);
 			if (res[data->index].room_name == NULL)
 			{
@@ -65,36 +65,42 @@ t_tunnel	*init_tunnels(t_config *conf)
 	return (res);
 }
 
-t_solver    *init_solver(t_config *conf)
+void	assign_ants(t_config *conf, t_solver *solver)
 {
-    t_solver	*solver;
-	int			i;
-	int			turn;
+	int	i;
+	int	turn;
 
-	solver = (t_solver *)malloc(sizeof(t_solver));
-	if (solver)
+	turn = 1;
+	while (solver->ants_remaining)
 	{
-		ft_bzero(solver, sizeof(t_solver));
-		solver->ants_remaining = conf->nb_ants;
-		solver->ar_tuns = init_tunnels(conf);
-		if (solver->ar_tuns)
+		i = -1;
+		while (++i < conf->nb_paths && solver->ants_remaining)
 		{
-			turn = 1;
-			while (solver->ants_remaining)
+			if (solver->ar_tuns[i].dist % turn)
 			{
-				i = 0;
-				while (i < conf->nb_paths && solver->ants_remaining)
-				{
-					if (solver->ar_tuns[i].dist % turn)
-					{
-						++solver->ar_tuns[i].nb_ants;
-						--solver->ants_remaining;
-					}
-					++i;
-				}
-				++turn;
+				++solver->ar_tuns[i].nb_ants;
+				--solver->ants_remaining;
 			}
 		}
+		++turn;
 	}
-    return (solver);
+}
+
+t_solver	*init_solver(t_config *conf)
+{
+	t_solver	*solver;
+
+	solver = (t_solver *)malloc(sizeof(t_solver));
+	if (!solver)
+		return (NULL);
+	solver->ants_remaining = conf->nb_ants;
+	solver->ar_tuns = init_tunnels(conf);
+	if (solver->ar_tuns)
+		assign_ants(conf, solver);
+	else
+	{
+		free (solver);
+		solver = NULL;
+	}
+	return (solver);
 }

@@ -6,7 +6,7 @@
 #    By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/14 01:20:15 by phnguyen          #+#    #+#              #
-#    Updated: 2021/12/26 12:22:57 by phnguyen         ###   ########.fr        #
+#    Updated: 2021/12/26 16:37:41 by phnguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC := gcc
 LIBFT := libft.a
 
 CFLAGS += -Wall -Werror -Wextra
-CFLAGS += -g
+#CFLAGS += -g
 #CFLAGS += -fsanitize=address
 
 SRCDIR := src/
@@ -28,6 +28,7 @@ C_FILE =	main \
 			parser \
 			parser_utils \
 			graph \
+			graph_utils \
 			solver \
 			solver_init \
 			node

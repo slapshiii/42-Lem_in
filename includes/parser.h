@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 03:42:45 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 12:14:28 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 16:51:53 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef enum state
 typedef struct s_path
 {
 	int		dist;
-	int 	index;
+	int		index;
 	t_list	*path;
 }	t_path;
 
@@ -65,6 +65,6 @@ typedef struct config
 int		parse_input(t_config *conf);
 
 t_state	addroom(t_config *conf, t_state	*state, char **tab);
-t_state addedge(t_config *conf, char **tab);
+t_state	addedge(t_config *conf, char **tab);
 
 #endif

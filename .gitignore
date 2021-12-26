@@ -1,5 +1,7 @@
 lem-in
 obj/
+maps/
+Maps/
 .vscode/
 libft/
 *.txt

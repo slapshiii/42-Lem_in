@@ -6,13 +6,11 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 18:16:43 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 14:48:08 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 17:16:26 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-#define CUR_PATH conf->solver->ar_tuns[i]
 
 char	*format_output(int n, char *name)
 {
@@ -35,33 +33,34 @@ char	*format_output(int n, char *name)
 	return (res);
 }
 
-void	print_solver(t_config *conf)
+void	print_tun_state(int *end, t_tunnel *t, t_config *conf)
 {
-	int	i;
-	int	d;
+	int		d;
+	char	*buf;
 
-	i = 0;
-	while (i < conf->nb_paths)
+	d = 0;
+	while (d < t->dist)
 	{
-		d = 0;
-		printf("T%d ants:%d path: ", (conf->solver->ar_tuns[i]).index,
-			(conf->solver->ar_tuns[i]).nb_ants);
-		while (d < (conf->solver->ar_tuns[i]).dist)
+		if (t->current - d < t->nb_ants
+			&& t->current - d >= 0)
 		{
-			printf("%s ", (conf->solver->ar_tuns[i]).room_name[d]);
-			++d;
+			if (!*end)
+				ft_putchar_fd(' ', 1);
+			*end = 0;
+			buf = format_output((t->current - d) * conf->nb_paths
+					+ t->index + 1, t->room_name[d]);
+			ft_putstr_fd(buf, 1);
+			free(buf);
 		}
-		printf("\n");
-		++i;
+		++d;
 	}
+	++t->current;
 }
 
 void	print_soluce(t_config *conf)
 {
 	int		i;
 	int		finished;
-	int		d;
-	char	*buf;
 
 	i = 0;
 	finished = 0;
@@ -71,23 +70,7 @@ void	print_soluce(t_config *conf)
 		i = 0;
 		while (i < conf->nb_paths)
 		{
-			d = 0;
-			while (d < CUR_PATH.dist)
-			{
-				if (CUR_PATH.current - d < CUR_PATH.nb_ants
-					&& CUR_PATH.current - d >= 0)
-				{
-					if (!finished)
-						ft_putchar_fd(' ', 1);
-					finished = 0;
-					buf = format_output((CUR_PATH.current - d)* conf->nb_paths +
-						CUR_PATH.index + 1, CUR_PATH.room_name[d]);
-					ft_putstr_fd(buf, 1);
-					free(buf);
-				}
-				++d;
-			}
-			++CUR_PATH.current;
+			print_tun_state(&finished, &(conf->solver->ar_tuns[i]), conf);
 			++i;
 		}
 		if (!finished)
@@ -95,12 +78,11 @@ void	print_soluce(t_config *conf)
 	}
 }
 
-int 	solver(t_config *conf)
+int	solver(t_config *conf)
 {
-    conf->solver = init_solver(conf);
+	conf->solver = init_solver(conf);
 	if (!conf->solver)
 		return (1);
-	//print_solver(conf);
 	print_soluce(conf);
 	return (0);
 }
