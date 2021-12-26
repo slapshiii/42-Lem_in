@@ -6,7 +6,7 @@
 #    By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/14 01:20:15 by phnguyen          #+#    #+#              #
-#    Updated: 2021/12/26 21:33:55 by phnguyen         ###   ########.fr        #
+#    Updated: 2021/12/26 21:43:08 by phnguyen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ fclean: clean
 re: fclean all
 
 norm:
+	make -C $(LIBFTDIR) norm
 	norminette $(SRCDIR) $(INCL)
 
-.PHONY = all clean fclean re
+.PHONY = all clean fclean re norm
