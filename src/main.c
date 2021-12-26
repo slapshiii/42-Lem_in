@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 01:37:27 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 16:17:51 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 18:20:40 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ void	conf_cleaner(t_config *conf)
 	i = 0;
 	ft_lstclear(&(conf->nodes), &del_node);
 	ft_lstclear(&(conf->paths), &del_path);
-	while (i < conf->nb_paths)
+	if (conf->solver)
 	{
-		free((conf->solver->ar_tuns[i]).room_name);
-		++i;
+		while (i < conf->nb_paths)
+		{
+			free((conf->solver->ar_tuns[i]).room_name);
+			++i;
+		}
+		free(conf->solver->ar_tuns);
+		free(conf->solver);
 	}
-	free(conf->solver->ar_tuns);
-	free(conf->solver);
 }
 
 int	main(int ac, char **av)
@@ -41,7 +44,7 @@ int	main(int ac, char **av)
 	ft_bzero(&conf, sizeof(t_config));
 	if (parse_input(&conf))
 	{
-		ft_putstr_fd("./lem-in: error: Error in input\n", 2);
+		ft_putstr_fd("ERROR\n", 2);
 		return (2);
 	}
 	fordfulkerson(&conf);

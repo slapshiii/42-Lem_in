@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 04:07:30 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/24 08:19:27 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 18:34:24 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@ static void	parser_nb_ants(t_config *conf, t_state *state, char *str)
 {
 	int	res;
 
-	res = ft_atoi(str);
-	if (res < 1)
-	{
+	if (!ft_isnumber(str))
 		*state = error;
-		ft_putstr_fd("./lem-in: Error: number_of_ants invalid.\n", 2);
-	}
 	else
-		*state = room;
-	conf->nb_ants = res;
+	{
+		res = ft_atoi(str);
+		if (res < 1)
+			*state = error;
+		else
+			*state = room;
+		conf->nb_ants = res;
+	}
 }
 
 static void	parser_room(t_config *conf, t_state *state, char *str)
@@ -64,6 +66,11 @@ static int	parser_comment(t_config *conf, t_state *state, char *str)
 {
 	if (str[0] && str[0] == '#')
 	{
+		if (ft_strncmp("##", str, 2) == 0 && conf->nb_ants == 0)
+		{
+			*state = error;
+			return (1);
+		}
 		if (ft_strcmp(str, "##start") == 0)
 		{
 			if ((conf->valid & 0b010) == 0)
@@ -112,7 +119,7 @@ int	parse_input(t_config *conf)
 			return (1);
 	}
 	free(line);
-	if (state != tube || conf->valid != 0b110)
+	if (state != tube || conf->valid != 0b110 || conf->nb_ants == 0)
 		return (1);
 	return (0);
 }

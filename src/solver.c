@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 18:16:43 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 17:16:26 by phnguyen         ###   ########.fr       */
+/*   Updated: 2021/12/26 17:33:43 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	print_soluce(t_config *conf)
 
 int	solver(t_config *conf)
 {
+	if (conf->nb_paths < 1)
+		return (1);
 	conf->solver = init_solver(conf);
 	if (!conf->solver)
 		return (1);
