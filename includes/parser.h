@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 03:42:45 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 21:10:29 by phnguyen         ###   ########.fr       */
+/*   Updated: 2022/01/10 17:57:56 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 # include "node.h"
 
 # define WS " \t\r"
+
+# define NOLINK 0
+# define LINK 1
+# define USED 2
+# define RESIDUAL 3
 
 typedef enum state
 {
@@ -55,17 +60,19 @@ typedef struct config
 {
 	int			nb_ants;
 	int			nb_nodes;
+	int			nb_edges;
 	int			valid;
-	int			nb_paths;
+	int			end;
+	int			start;
+	int			**edges;
 	t_list		*nodes;
-	t_list		*paths;
-	t_list		*out;
-	t_solver	*solver;
 }	t_config;
 
 int		parse_input(t_config *conf);
+t_list	*get_elem(t_list **list, char *name);
 
 t_state	addroom(t_config *conf, t_state	*state, char **tab);
 t_state	addedge(t_config *conf, char **tab);
+int		init_edges(t_config *conf);
 
 #endif

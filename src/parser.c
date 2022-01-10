@@ -6,7 +6,7 @@
 /*   By: phnguyen <phnguyen@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/14 04:07:30 by phnguyen          #+#    #+#             */
-/*   Updated: 2021/12/26 22:03:05 by phnguyen         ###   ########.fr       */
+/*   Updated: 2022/01/10 19:13:10 by phnguyen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ static void	parser_room(t_config *conf, t_state *state, char *str)
 	char	**tab;
 
 	tab = ft_split(str, WS);
+	if (*state == r_start)
+		conf->start = conf->nb_nodes;
+	else if (*state == r_end)
+		conf->end = conf->nb_nodes;
 	*state = addroom(conf, state, tab);
 	ft_deletesplit(tab);
 }
@@ -47,6 +51,14 @@ static void	parser_tube(t_config *conf, t_state *state, char *str)
 	char	*tab[2];
 	char	*sep;
 
+	if (!conf->edges)
+	{
+		if (!init_edges(conf))
+		{
+			*state = error;
+			return ;
+		}
+	}
 	sep = ft_strchr(str + 1, '-');
 	if (sep == NULL)
 		return ;
